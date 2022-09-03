@@ -1,0 +1,163 @@
+Abteilung(abteilluhngs_id*,name,ort)
+Mitarbeiter(Personal_NR*,V_name,N_name,g_date,gehalt,p_PLZ,p_Stadt,p_straße,tätigeits_bz,abteilungs_id*#)
+Projekt(Projekt_id,projekt_beginn,projekt_ende,Personal_NR*#)
+arbeitet(W_S,Personal_NR*#,abteilungs_id*#)
+
+
+-
+
+
+
+drop database if exists Uebungbsp2;
+create database Uebungbsp2;
+
+use Uebungbsp2;
+
+create Table Abteilung(
+aID int not null,
+Ort varchar(50),
+Name varchar(50),
+primary key(aID)
+);
+
+create Table Mitarbeiter(
+PNR int not null,
+aID int not null,
+VornameName varchar(30),
+NachnameName varchar(30),
+gdate date,
+Gehalt decimal(8,2),
+pPLZ int,
+pOrt varchar(50),
+pNR varchar(60),
+primary key(pNR),
+foreign key(aID) references abt (aID)
+);
+
+create Table Projekt(
+ProjektID int not null,
+pB date,
+pR date,
+P_NR_leit int not null,  
+primary key(ProjektID),
+foreign key(P_NR_leit) references MIT (PNR)
+);
+
+
+create Table arbeitet(
+PNR int not null,	
+aID int not null,
+wS int,
+primary key(aID,PNR),
+foreign key(aID) references abt (aID),
+foreign key(PNR) references MIT (PNR)
+);
+
+
+
+insert into Abteilung values(1,'Wirtschaft','StarkStraße 8b');
+insert into Abteilung values(2,'WI2','StarkStraße 4b');
+insert into Abteilung values(3,'TF Wirtschaft','StarkStraße 8c');
+insert into Abteilung values(4,'Vasility Manager head quader of vasilaty managment','vasielty Street 8a');
+insert into Abteilung values(5,'Einkauf','Elger Straße 8d');
+insert into Abteilung values(6,'Assistskraefte haed quader','elger Straße 8b');
+insert into Abteilung values(7,'TF for economics in Englisch please','bukingham Street 8c');
+insert into Abteilung values(8,'Vertriebs head quador','Marktstraße 8i');
+insert into Abteilung values(9,'Produktdisigner','Produktstraße 8e');
+insert into Abteilung values(10,'Produktentwicklung','ProduktStraße 8w');
+insert into Abteilung values(11,'Marketing','Innsbrucker Straße 8o');
+
+insert into Mitarbeiter values(1,1,'Christian','Stark','1950-06-30',99999.99,3030,'Tirolkliniken','Stark Straße 8d');
+insert into Mitarbeiter values(2,3,'DB','Schenke','1304-02-10',1690.69,6969,'sixnighn','sixnighn Straße 8d');
+insert into Mitarbeiter values(3,2,'Elmer','Stark','1980-08-20',2010.83,3030,'Tirolkliniken','Stark Straße 8k');
+insert into Mitarbeiter values(4,10,'Pflanziska','Stark','2004-06-30',100000.19,3030,'Tirolkliniken','Stark Straße 8h');
+insert into Mitarbeiter values(5,4,'Chrian','Strong','1955-04-22',9924.23,1230,'kliniken','Strong Street 8d');
+insert into Mitarbeiter values(6,8,'Manfret','heinz','1974-02-26',11299.72,6230,'Ratenberg','knige Straße 8i');
+insert into Mitarbeiter values(7,7,'Manfred','miller','1943-03-01',11239.29,1228,'Frankfurt an der Donau','Donau alle 8f');
+insert into Mitarbeiter values(8,9,'Frank','hans','1986-05-13',2399.23,3410,'Graz','Gassen Straße 8w');
+insert into Mitarbeiter values(9,3,'Oliver','manfret','1920-09-10',2356.24,8740,'Innsbruck','Rhathaus gasse 8a');
+insert into Mitarbeiter values(10,5,'Max','Musterman','2006-11-09',9129.19,3333,'Hall in Tirol','Schlosser Gasse 8c');
+insert into Mitarbeiter values(11,6,'Pflanziska','Pflanze','2002-02-02',3000.23,3333,'gewächsheusen','Bueropflanzenstraße 8d');
+insert into Mitarbeiter values(12,11,'Walking','on Sunshine','1980-03-30',3003.33,8740,'Innsbruck','Deep purpel street 8b');
+
+insert into Projekt values(1,'2020-04-23','2021-05-12',5);
+insert into Projekt values(2,'2020-03-21','2021-01-18',10);
+insert into Projekt values(3,'2022-06-13','2022-03-01',8);
+insert into Projekt values(4,'2022-06-13',null,1);
+insert into Projekt values(5,'2021-09-21','2021-11-22',4);
+insert into Projekt values(6,'2022-11-09',null,6);
+insert into Projekt values(7,'2022-07-03','2023-23-13',7);
+insert into Projekt values(8,'2020-01-22','2022-09-12',2);
+insert into Projekt values(9,'2022-02-22','2022-12-22',1);
+insert into Projekt values(10,'2021-02-05','2022-03-04',9);
+insert into Projekt values(11,'2021-02-05','2021-12-31',12);
+
+insert into arbeitet values('1',1,10);
+insert into arbeitet values('1',3,5);
+insert into arbeitet values('3',8,3);
+insert into arbeitet values('7',9,8);
+insert into arbeitet values('3',5,25);
+insert into arbeitet values('6',8,32);
+insert into arbeitet values('7',3,12);
+insert into arbeitet values('8',9,1);
+insert into arbeitet values('1',4,11);
+insert into arbeitet values('7',4,3);
+insert into arbeitet values('5',6,7);
+insert into arbeitet values('9',1,9);
+insert into arbeitet values('3',7,6);
+insert into arbeitet values('4',8,24);
+insert into arbeitet values('5',5,16);
+insert into arbeitet values(12,11,40);
+
+-- 4) Mitarbeiter 
+
+select * from Mitarbeiter;
+
+-- 5) Mitarbeiter in einer Abteilung
+
+select count(PNR) as 'Mitarbeiter', aID from Mitarbeiter group by aID;
+
+-- 6) Projektleiter
+
+select a.PNR_leit, a.ProjektID, b.VornName, b.NachName from Projakt a inner Join Mitarbeiter b on a.P_NR_leit = b.PNR order by a.ProjektID ASC;
+
+-- 7) Welcher Mitarbeiter verdient am meisten
+
+select Gehalt, Vorname, Nachname from Mitarbeiter order by Gehalt desc limit 1;
+
+-- 8) Wie viel verdienen die Mitarbeiter
+
+select PNR,Gehalt, Vorname, Nachname from Mitarbeiter;
+
+-- 9) sum()
+select 'sum()' as INFO;
+select sum(gehalt) as 'Gesamtgehalt' from Mit;
+
+-- 10) Marketing
+
+select a.Vorname, a.Nachname,  b.Name from Mitarbeiter a inner Join Abteilung b on a.aID=b.aID  where b.Name='Marketing';
+
+-- 11) Mitarbeiter in Innsbruck
+
+select a.Vorname, a.Nachname, a.pOrt, b.Name from Mitarbeiter a inner Join Abteilung b on a.aID = b.aID where a.pOrt = 'Innsbruck';
+
+-- 12) 2021 ende
+
+select ProkeltID, pB, pE from Projekt where pb ='2021-01-01' and pE = '2021-12-31';
+
+-- 13) Wochenstunden
+
+select sum(sW) as 'Wochenstunden', pNR from arbeitet group by pNR;
+
+-- 14) Wochenstunden pro Mitarbeiter
+
+select a.Vorname, a.Nachname, sum(b.wS) as 'Wochenstundens' from Mitarbeiter a inner Join arbeitet b on a.pNR = b.pNR group by Vorname order by wS desc;
+
+-- 15) Freie Kapazitaeten
+
+select a.Vorname, a.Nachname, (sum(b.wS)-40)*-1 as 'Freie Wochenstunden' from Mitarbeiter a inner Join arbeitet b on a.pNr = b.pNR group by Vorname having sum(b.wS)<40;
+
+
+
+
+

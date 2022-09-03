@@ -1,0 +1,43 @@
+drop database AUtos;
+
+create database if not exists Autos;
+
+use Autos;
+
+create table PKW(
+	PKWNR int,
+	Modell varchar (30) not null,
+	Preis decimal(8),
+	kmStand int,
+	Baujahr int
+);
+
+insert into PKW values (1,"BMW i3",62000.00,30000,2019);
+insert into PKW values (2,"VW Sharan 4motion",72000.00,10000,2020 );
+insert into PKW values (3,"Tesla Model 3",NULL,20000.00,2020 );
+insert into PKW values (4,"VW Bus California",78000.00,30000,2015);
+
+select * from PKW;
+
+select count(PKWNR) from PKW;
+
+select count(Preis) as 'PKW mit Preis' from PKW;
+
+Select Baujahr, count(Baujahr) from PKW group by Baujahr;
+Select Baujahr, count(Baujahr) from PKW where Baujahr > 2015 group by Baujahr;
+Select Baujahr, count(Baujahr) from PKW where Baujahr > 2015 group by Baujahr having count(Baujahr) > 1;
+
+Select PKWNR, Modell, Preis from PKW LIMIT 2;
+
+Select UPPER(Modell) from PKW;
+Select LOWER(Modell) from PKW;
+
+select PKWNR, length(Modell) from PKW;
+
+select PKWNR,Modell,Preis * 1.2 as BruttoPreis from PKW;
+select sum(Preis)/count(Preis) as Durchschnitspreis from PKW;
+
+select PKWNR, Modell, Preis as Nettopreis, Preis * 1.2 as Bruttopreis, kmStand, Baujahr from PKW;
+
+Select sum(Preis*1.2)-sum(Preis) as umsatzsteuer from PKW;
+

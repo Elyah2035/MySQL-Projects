@@ -1,0 +1,74 @@
+drop database test2;
+
+create database if not exists test2;
+
+use test2;
+
+create table Mitarbeiter(
+	MID varchar (6),
+	Nachname varchar (30) not null,
+	Vorname varchar (30) not null,
+	Gehalt decimal (65.00),
+	Bereich varchar (20),
+	Geschlecht char (1),
+	Eintrittsdatum date
+);
+
+	insert into Mitarbeiter values ('M89100', 'Reinhardt', 'Meldinda', 2435.00, 'Buero', 'w' , '1990-01-01');
+	insert into Mitarbeiter values ('M89101', 'Schoenbaum', 'Jakob', 2090.00, 'Vertrieb', 'm' , '2003-03-01');
+	insert into Mitarbeiter values ('M89102', 'Wegner', 'Lutz', 3410.00, 'Produktion', 'm' , '2013-05-15');
+	insert into Mitarbeiter values ('M89103', 'Schulz', 'Dorothea', 1201.00, 'Produktion', 'w' , '2000-01-01');
+	insert into Mitarbeiter values ('M89104', 'Richter', 'Heiko', 3675.00, 'Produktion', 'm' , '2008-06-20');
+	insert into Mitarbeiter values ('M89105', 'Mustermann', 'Max', 4000.00, 'Ausendienst', 'w' , '1990-01-02');
+	insert into Mitarbeiter values ('M89106', 'Mitermeier', 'Rosei', 5250.00, 'Ausendienst', 'w' , '1999-03-20');
+	insert into Mitarbeiter values ('M89107', 'vom Dach', 'Carlson', 800.00, 'Lehrling', 'm' , '2016-01-01');
+	insert into Mitarbeiter values ('M89108', 'Langfuss', 'Pipi', 1800.00, 'Buero', 'w' , '2015-12-01');
+	insert into Mitarbeiter values ('M89109', 'Stecher', 'Adrian', 2333.00, 'Ausendienst', 'm' , '2015-12-01');
+	insert into Mitarbeiter values ('M89110', 'Steger', 'Susi', 2100.00, 'Vertrieb', 'w' , '2014-07-07');
+
+
+select * from Mitarbeiter;
+select MID from Mitarbeiter where MID = "M89107";
+delete from Mitarbeiter where MID = 'M89107';
+update Mitarbeiter set Nachname = 'Langfuss' where MID = 'M89108';
+select * from Mitarbeiter;
+
+
+
+
+
+
+---------------------------------
+drop database Test_3;
+create Database Test_3;
+use Test_3;
+create table Mitarbeiter(
+	Nachname varchar (30) not null,
+	Vorname varchar (30) not null,
+	Gehalt decimal (65.00),
+	Geschlecht char (1)
+);
+
+select * from Mitarbeiter;
+
+insert into Mitarbeiter values ('Gerhardt','Sabine',2435, 'w');
+insert into Mitarbeiter values ('Mueller','Dennis',2090, 'm');
+insert into Mitarbeiter values ('Schaulze','Holger',3410, 'm');
+insert into Mitarbeiter values ('Opitz','Heiko',3675, 'm');
+insert into Mitarbeiter values ('Meier','Julia',1201, 'w');
+
+
+
+
+select * from Mitarbeiter where Gehalt > 2500 and Geschlecht ='w';
+
+select * from Mitarbeiter where Gehalt < 2000 or Gehalt > 3000;
+
+select * from Mitarbeiter where Vorname not IN ('Heiko', 'Julia', 'Sabine');
+
+select * from Mitarbeiter where Nachname like 'S_____e';
+
+select * from Mitarbeiter where Nachname like 'M%';
+
+
+select * from Mitarbeiter where Nachname like '%er';

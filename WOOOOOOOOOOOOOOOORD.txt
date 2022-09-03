@@ -1,0 +1,71 @@
+--3.)
+Country = {Code*, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2}
+City = {ID, Name, CountryCode, District, Population}
+CountryLanguage = {CountryCode, Language, IsOffical, Percentage}
+
+--4.)
+2010-09-30 11:01:37
+
+--5.)
+select name from country;
+
+--6.)
+select name, SurfaceArea from country where SurfaceArea > 200000;
+
+--7.)
+select name, SurfaceArea, Population from country where SurfaceArea > 200000 and Population > 1000000;
+select count(SurfaceArea >200000 and Population > 1000000) from country;
+
+--8.)
+select name, SurfaceArea, Population from country where SurfaceArea > 200000 or Population > 1000000;
+select count(SurfaceArea >200000 or Population > 1000000) from country;
+
+--9.)
+select name,SurfaceArea, Population from country where name like("F%");
+
+--10.)
+select name,SurfaceArea, Population from country where name like("F%") and Continent = "Europe";
+
+--11.)
+select name,SurfaceArea, Population from country where name like("%land");
+
+--12.)
+select name,SurfaceArea, Population from country where name not like("%land");
+
+--13.)
+select name, Region from country where SurfaceArea > 200000 order by region asc;
+
+--14.)
+select name, Region from country where SurfaceArea > 200000 order by region asc, name desc;
+
+--15.)
+select distinct(continent) from country;
+
+--16.)
+select a.name, b.language from country a, countrylanguage b 
+where a.code = b.Countrycode and name = "Austria";
+
+--17.)
+select a.name,b.name from city a, country b where a.id = capital and b.name = "austria";
+
+--18.)
+select distinct(Region) from country;
+
+--19.)
+select avg(SurfaceArea), Region from country where region = "Western Europe";
+
+--20)
+select name, SurfaceArea from country order by SurfaceArea DESC limit 1;
+
+--21.)
+select name, SurfaceArea from country order by SurfaceArea ASC limit 1;
+
+--22.)
+select count(name) from country where region = "Western Europe";
+
+--23.)
+select avg(SurfaceArea) as "WORD" from country;
+
+--24.)
+select avg(SurfaceArea) as "WORD" from country where SurfaceArea>1000;
+

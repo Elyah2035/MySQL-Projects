@@ -1,0 +1,106 @@
+Mitarbeiter(Vorname,Nachname,Titel,Status,PersonalNR.*)
+sitzen(MitarbeiterNr.#,BueroNR.#, Zeitpunkt, Platz)
+Bueraum(BueroNR.*)
+besitzt(TelefonNr.#,BueroNR.#)
+Telefon(Art,TelefonNR.*)
+
+
+
+
+drop database DatenmodellierungBeispiel1;
+create database DatenmodellierungBeispiel1;
+use DatenmodellierungBeispiel1;
+
+
+create Table Mitarbeiter(
+
+    PersonalNR int not null,
+    Vorname Varchar(40),
+    Nachname Varchar(40),
+    Titel Varchar(40),
+    Status Varchar(40),
+    primary key(PersonalNR)
+);
+
+
+
+create Table Bueroraum(
+
+    ZimmerNR varchar(30),
+    MitarbeiterNR int,
+    primary key(ZimmerNR),
+    foreign Key(MitarbeiterNR) References Mitarbeiter(PersonalNR)
+);
+
+
+create Table Telefon(
+
+    TelefonNR int not null,
+    BueroraumNR int,
+    Art Varchar(40),
+    primary key(TelefonNR),
+    foreign Key (BueroraumNR) references Bueroraum(ZimmerNR)
+);
+
+
+create table sitzen(
+	ZimmerNr int,
+	PersonalNr int,
+	Zeit varchar(30),
+	Platz int,
+	primary key(ZimmerNr, PersonalNr),
+	foreign key(ZimmerNr) refrences Bueroraum(ZimmerNr)
+	foreign key(PersonalNr) refrences Mitarbeiter(PersonalNr)
+	);
+
+Alter table Bueroraum add Zimmerbeschreibung varchar(30);
+
+Insert into Mitarbeiter values(1,"Max","Mustermann","Dr.","Altersteilzeit");
+Insert into Mitarbeiter values(2,"Susi","Musterfrau","DI","Angestellte");
+Insert into Mitarbeiter values(3,"Ernst","Huber"," ","Paktikant");
+Insert into Mitarbeiter values(4,"Hannes","Maier"," ","Angestellter");
+
+insert into Bueroraum values (103, 'Klassenzimmer 103');
+insert into Bueroraum values (104, 'Klassenzimmer 104');
+insert into Bueroraum values (206, 'EDV Raum');
+insert into Bueroraum values (207, 'grosser Bueroraum');
+
+insert into Telefon values (101, 'Hausapparat', 206);
+insert into Telefon values (201, 'Amtsapparat', 207);
+insert into Telefon values (301, 'Amtsapparat', 103);
+insert into Telefon values (401, 'Amtsapparat', 104);
+
+insert into sitzen values (206, 1, '01.01.2022', 1);
+insert into sitzen values (207, 1, '02.01.2022', 1);
+insert into sitzen values (103, 1, '03.01.2022', 1);
+insert into sitzen values (104, 1, '04.01.2022', 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create Table sitzt(
+ZimmerNR int not null,
+PersonalNR int not null,
+seit Date not null,
+Platz int not null,
+foreign Key(PersonalNR) Reference Mitarbeiter(PersonalNR)
+);

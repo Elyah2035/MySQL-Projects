@@ -1,0 +1,42 @@
+// 1
+Drop database if exists Firma;
+
+// 2
+create database Firma;
+use Firma;
+
+// 3
+drop table if exists person;
+drop table if exists department;
+
+// 4
+create table department(
+AbtNr varchar(5),
+AbtName varchar(30)
+);
+
+create table person(
+PersonalNR int not null AUTO_INCREMENT,
+Name varchar(30),
+Gehalt int,
+AbtNR varchar(5),
+PRIMARY KEY (PersonalNr)
+);
+
+ALTER TABLE person AUTO_INCREMENT=1;
+
+
+// 5
+insert into person (PersonalNR, Name, Gehalt, AbtNR) values(1,"Mueller",3,"A001");
+insert into person (PersonalNR, Name, Gehalt, AbtNR) values(2,"Schmidt",30,"A002");
+insert into person (PersonalNR, Name, Gehalt, AbtNR) values(3,"Walther",300,"B001");
+insert into person (PersonalNR, Name, Gehalt, AbtNR) values(4,"Gruber",3000,"B002");
+
+insert into department values ("A001", "Personal");
+insert into department values ("A002", "Einkauf");
+insert into department values ("B001", "Verkauf");
+insert into department values ("B002", "Support");
+
+alter table person add constraint FK_ABTNR foreign key (AbtNR) references department(AbtNR);
+
+

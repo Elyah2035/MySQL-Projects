@@ -1,0 +1,130 @@
+--1 Lösche eine Datenbank mit dem Namen dieses Beispiels (falls schon vorhanden);
+drop database Telefonverzeichnis if exists;
+
+--2 Erstelle eine Datenbank für dieses Beispiel
+create database if not exists Telefonverzeichnis;
+
+--3 Überprüfe, ob die Datenbank vorhanden ist; 
+use Telefonverzeichnis;
+
+--4 Erstelle eine Tabelle Telefonverzeichnis (mit sinnvollen Datentypen)
+create table Mitarbeiter(
+	id int,
+	Vorname varchar (30) not null,
+	Abteilung varchar (30) not null,
+	Tel varchar (30) not null,
+	Plz int,
+	Ort varchar (30) not null
+);
+
+--5 Überprüfe, ob die Tabelle vorhanden ist;
+select * from Mitarbeiter;
+
+--6 Überprüfe, ob die Spalten vorhanden sind;
+show Tables from Telefonverzeichnis;
+
+---------------------------------------------------------;
+
+--7 Befülle die Tabelle mit folgenden Inhalten;
+insert into mitarbieter values ("1","Gabi","Sekr",100," " ," " );
+insert into mitarbeiter values ("2","Tatiana","GF",202," " ," " );
+insert into mitarbeiter values ("3","Manfred","GF",201," " ," " );
+insert into mitarbeiter values ("4","Iris","MK",201," " ," " );
+insert into mitarbeiter values ("5","Rene","PM",501," " ," " );
+insert into mitarbeiter values ("6","Elena","MM",301," " ," " );
+insert into mitarbeiter values ("7","Aidar","MM",301," " ," " );
+insert into mitarbeiter values ("8","Oleg","MM",301," " ," " );
+insert into mitarbeiter values ("9","Andreas","Entw",610,"52525" ,"Heinsberg" );
+insert into mitarbeiter values ("10","Arthur","Entw",612,"52499" ,"Baesweiler" );
+insert into mitarbeiter values ("11","Gregor","Entw",611,"52351" ,"Düren" );
+insert into mitarbeiter values ("12","Michael","Entw",616,"50859" ,"Köln" );
+insert into mitarbeiter values ("13","Norbert","Entw",614,"52134" ,"Herzogenrath" );
+insert into mitarbeiter values ("14","Roland","Entw",601,"52134" ,"Herzogenrath" );
+insert into mitarbeiter values ("15","Stefan","Entw",613,"52062" ,"Aachen" );
+insert into mitarbeiter values ("16","Torsten","Entw",601,"52072" ,"Aachen" );
+insert into mitarbeiter values ("17","Werner","Entw",615,"52066" ,"Aachen" );
+insert into mitarbeiter values ("18","FAX"," ",101," " ," " );
+insert into mitarbeiter values ("19","Konferenzraum"," ",700," " ," " );
+
+---------------------------------------------------------;
+
+--8 Ergänze die Tabelle um den Nachnamen;
+alter table mitarbeiter add column Nachname varchar(30);
+
+--9 Gib den einzelnen Personen Nachnamen;
+update mitarbeiter set Nachname = 'Mueller' where id = "1";
+update mitarbeiter set Nachname = 'Schmidt' where id = "2";
+update mitarbeiter set Nachname = 'Schneider' where id = "3";
+update mitarbeiter set Nachname = 'Fischer' where id = "4";
+update mitarbeiter set Nachname = 'Meyer' where id = "5";
+update mitarbeiter set Nachname = 'Weber' where id = "6";
+update mitarbeiter set Nachname = 'Hofman' where id = "7";
+update mitarbeiter set Nachname = 'Wagner' where id = "8";
+update mitarbeiter set Nachname = 'Becker' where id = "9";
+update mitarbeiter set Nachname = 'Schulz' where id = "10";
+update mitarbeiter set Nachname = 'Schaefer' where id = "11";
+update mitarbeiter set Nachname = 'Koch' where id = "12";
+update mitarbeiter set Nachname = 'Bauer' where id = "13";
+update mitarbeiter set Nachname = 'Richter' where id = "14";
+update mitarbeiter set Nachname = 'Klein' where id  = "15";
+update mitarbeiter set Nachname = 'Schrieder' where id = "16";
+update mitarbeiter set Nachname = 'Wolf' where id = "17";
+update mitarbeiter set Nachname = ' ' where id = "18";
+update mitarbeiter set Nachname = ' ' where id = "19";
+
+--10 Ändere den Typ des Feldes ID auf int;
+--Dont forget to do that! + change the variable from varchar to int that u can make it to a int again;
+
+--11 Selektiere alle Inhalte der Tabelle;
+select * from mitarbeiter;
+
+--12 Selektiere alle Inhalte der Tabelle und sortiere sie als erstes nach Abteilung und dann nach Vorname;
+select * from mitarbeiter order by Abteilung,Vorname;
+
+--13 Selektiere Vorname, Nachname, Abteilung der Tabelle und sortiere sie als erstes nach Abteilung absteigend und dann nach Vorname Aufsteigend;
+select Vorname, Nachname, Abteilung from mitarbeiter order by Abteilung ASC, Vorname DESC;
+
+--14 Selektiere alle Inhalte der Tabelle bei denen der Ort Aachen ist;
+select * from mitarbeiter where Ort = 'Aechen';
+
+--15 Selektiere Vorname und Ort bei denen die Abteilung Ent und der Ort entweder Düren oder Köln ist;
+select Ort,Vorname from mitarbeiter where abteilung = 'entw' and ort = 'Düren' or Ort = 'Koeln';
+
+--16 Selektiere Vorname Nachname, Telefonnummer derjenigen die mit dem Buchstaben A beginnen;
+select Vorname,Nachname,Vel from mitarbeiter where Vorname LIKE 'A%';
+
+
+--17 Selektiere Vorname, Tel und Abteilung bei denen die Abteilungungleich Ent;
+select Vorname,Tel,Abteilung from mitarbeiter where abteilung != 'ent';
+
+---------------------------------------------------------;
+
+--18 Selektiere alle Inhalte der Tabelle bei denen der Ort mit (zog) endet;
+select * from Mmitarbeiter where Ort LIKE '%zog';
+
+--19 Selektiere alle Inhalte bei denen die Postleitzahl zwischen 52351 und 52499 liegt;
+select * from mitarbeiter where Plz < 52351 and Plz > 52499;
+
+--20 Selektiere alle Inhalte die keiner Abteilung zugeordnet sind ;
+select * from mitarbeiter where Abteilung = " ";
+
+--21 Welche verschiedenen Abteilungen gibt es. Gib sie nur einmal aus! Beachte, dass keine leeren Abteilungsnamen ausgegeben werden;
+--nicht vergessen!;
+
+--22 Werner wechselt in die GF. Bilde das mit einem Befehl ab;
+update mitarbeiter set Abteilung = 'GF' where Vorname = 'Werner';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

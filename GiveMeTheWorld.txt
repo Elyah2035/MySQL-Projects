@@ -1,0 +1,75 @@
+--1)
+select a.name, b.name from city a ,country b where a.CountryCode = b.Code and group by b.name;
+
+--2)
+select a.name, b.name from city a, country b where a.CountryCode = b.Code  and b.name = 'Austria';
+
+--3)
+select a.capital, a.name, b.name from country a , city b where a.Capital=b.ID;
+
+--4)
+select capital, name from country where capital is NULL;
+
+--5)
+select name, countrycode from city where countrycode is NULL;
+
+--6)
+select avg(LifeExpectancy) as 'Durchschnitsslebenserwartung' from country;
+
+--7)
+select name, LifeExpectancy from country where LifeExpectancy < (select avg(LifeExpectancy) from country);;
+
+--8)
+select name, LifeExpectancy from country where LifeExpectancy > (select avg(LifeExpectancy) from country);;
+
+--9)
+select a.name, b.language from country a, Countrylanguage b where a.code=b.countrycode and b.language='German';
+
+--10)
+select a.name, b.language from country a, Countrylanguage b where a.code=b.countrycode and b.language='German' and b.language !='Turkish';
+
+--11)
+select a.name, b.language from country a, Countrylanguage b where a.code=b.countryCode and b.language  in (select b.language from country a inner join Countrylanguage b on a.code=b.countrycode where a.name='Kazakstan');
+
+--12)
+select avg(SurfaceArea) as Durchschnittsflaeche, region from country where population>100000 group by region having avg(Surfacearea)>1000; 
+
+--13)
+select * from city where name='Innsbruck';
+delete from city where name='Innsbruck';
+
+--14)
+insert into city values (1527, 'Innsbruck', 'AUT', 'Tirol', 111752);
+
+--15)
+alter table city add constraint countrycity foreign key(countrycode) references country(code);
+
+--16)
+select * from city where name='Innsbruck';
+delete from city where name='Innsbruck';
+
+--16)
+update country set headofstate = 'Alexander vander Bellen' where name = 'Austria';
+
+--17)
+select name, population from country where population > (select sum(population) from country where continent = 'Europe');
+
+--18)
+select sum(population)/100000 as 'weltbevölkerung' from country;
+
+--19)
+select distinct region from country order by region desc;
+
+--20)
+select name from country where region = (select region from country where name = 'Austria') or region = (select region from country where name = 'Italy');
+
+--21)
+select name from country where population > (select population from country where name = 'Malta') and population < (select population from country where name = 'Germany');
+
+--22)
+select name, population from country where name in ('Spain', 'Italy', 'Switzerland');
+
+--23)
+select name, population/100000 from country where continent = 'South America' order by (population/SurfaceArea) desc;
+
+

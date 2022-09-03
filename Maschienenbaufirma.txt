@@ -1,0 +1,159 @@
+Produkt(ProduktNr*,ProduktBezeichnung)
+Fertigungsstraße(FertigungsstraßeNR*,ProduktNr#)
+Fertigungsstation(FertigungsstationNr*,FertigungsstraßeNr#)
+Maschine(MaschineNr*,Bezeichnung,FertigungsstraßeNr#)
+Mitarbeiter(MitarbeiterNr*,Vorname,Nachname,FertigungsstraßeNr#)
+bedienen(MaschineNr#,MitarbeiterNr#)
+herstellen(ProduktNr#,FertigungsstrasseNr#)
+eingeteilt(FertigungsstrasseNr#,Fertigungsstation#)
+arbeitet(FertigungsstrasseNr#,MitarbeiterNr#)
+
+
+
+
+
+Drop database if exists Maschienenbaufirma;
+create database Maschienenbaufirma;
+
+use Maschienenbaufirma;
+
+create table Produkt(
+ProduktNr int not null,
+Bezichnung varchar(50),
+Primary key(ProduktNr));
+
+create table Fertigungsstrasse(
+FertigungsstrasseNr int not null,
+ProduktNr int not null,
+primary key(FertigungsstrasseNr),
+foreign key (ProduktNr) references Produkt(ProduktNr));
+
+create table Fertigungsstation(
+FertigungsstationNr int not null,
+FertigungsstrasseNr int not null,
+primary key (FertigungsstationNr),
+foreign key (FertigungsstrasseNr) references Fertigungsstrasse(FertigungsstrasseNr));
+
+create table Maschine(
+MaschineNr int not null,
+Bezeichnung varchar(50),
+FertigungsstrasseNr int not null,
+primary key (MaschineNr),
+foreign key (FertigungsstrasseNr) references Fertigungsstrasse(FertigungsstrasseNr));
+
+create table Mitarbeiter(
+MitarbeiterNr int not null,
+Vorname varchar(30),
+Nachname varchar(30),
+FertigungsstrasseNr int not null,
+primary key (MitarbeiterNr),
+foreign key (FertigungsstrasseNr) references Fertigungsstrasse(FertigungsstrasseNr));
+
+
+
+create table bedienen(
+MaschineNr int not null,
+MitarbeiterNr int not null,
+primary key (MitarbeiterNr,MaschineNr),
+foreign key (MitarbeiterNr) references Mitarbeiter(MitarbeiterNr),
+foreign key (MaschineNr) references Maschine(MaschineNr));
+
+create table herstellen(
+ProduktNr int not null,
+MitarbeiterNr int not null,
+primary key (MitarbeiterNr,ProduktNr),
+foreign key (MitarbeiterNr) references Mitarbeiter(MitarbeiterNr),
+foreign key (ProduktNr) references Produkt(ProduktNr));
+
+create table eingeteilt(
+FertigungsstrasseNr int not null,
+FertigungsstationNr int not null,
+primary key (FertigungsstrasseNr,MaschineNr),
+foreign key (FertigungsstrasseNr) references Fertigungsstrasse(FertigungsstrasseNr),
+foreign key (FertigungsstationNr) references Fertigungsstation( FertigungsstationNr));
+
+create table arbeitet(
+FertigungsstrasseNr int not null,
+MitarbeiterNr int not null,
+primary key (MitarbeiterNr,FertigungsstrasseNr),
+foreign key (MitarbeiterNr) references Mitarbeiter(MitarbeiterNr),
+foreign key (FertigungsstrasseNr) references Fertigungsstrasse(FertigungsstrasseNr));
+
+insert into Produkt values(1,"Löffel");
+insert into Produkt values(2,"Löffel2");
+insert into Produkt values(3,"Löffel3");
+insert into Produkt values(4,"Löffel4");
+insert into Produkt values(5,"Löffel5");
+
+
+insert into Fertigungsstrasse values(1,1);
+insert into Fertigungsstrasse values(2,2);
+insert into Fertigungsstrasse values(3,3);
+insert into Fertigungsstrasse values(4,4);
+insert into Fertigungsstrasse values(5,5);
+
+insert into Fertigungsstation values(1,1);
+insert into Fertigungsstation values(2,2);
+insert into Fertigungsstation values(3,3);
+insert into Fertigungsstation values(4,4);
+insert into Fertigungsstation values(5,5);
+
+
+insert into Maschine values(1,"Löffel",1);
+insert into Maschine values(2,"Löffel2",2);
+insert into Maschine values(3,"Löffel3",3);
+insert into Maschine values(4,"Löffel4",4);
+insert into Maschine values(5,"Löffel5",5);
+
+insert into Mitarbeiter values(1,"Elia","Zach",1);
+insert into Mitarbeiter values(2,"Elia1","Zach1",2);
+insert into Mitarbeiter values(3,"Elia2","Zach2",3);
+insert into Mitarbeiter values(4,"Elia3","Zach3",4);
+insert into Mitarbeiter values(5,"Elia4","Zach4",5);
+
+insert into bedienen values(1,1);
+insert into bedienen values(2,2);
+insert into bedienen values(3,3);
+insert into bedienen values(4,4);
+insert into bedienen values(5,5);
+
+
+insert into eingeteilt values(1,1);
+insert into eingeteilt values(2,2);
+insert into eingeteilt values(3,3);
+insert into eingeteilt values(4,4);
+insert into eingeteilt values(5,5);
+
+
+insert into arbeitet values(1,1);
+insert into arbeitet values(2,2);
+insert into arbeitet values(3,3);
+insert into arbeitet values(4,4);
+insert into arbeitet values(5,5);
+
+
+insert into herstellen values(1,1);
+insert into herstellen values(2,2);
+insert into herstellen values(3,3);
+insert into herstellen values(4,4);
+insert into herstellen values(5,5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

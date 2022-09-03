@@ -1,0 +1,64 @@
+drop database MietvertragDB;
+create database MietvertragDB;
+use MietvertragDB;
+
+
+create table Mietvertrag(
+VertragsNr int,
+Datum date,
+Beginn date,
+Ende date,
+KdNr int,
+RadNr int);
+
+insert into Mietvertrag values(1674,'2012-08-31','2012-09-02','2012-09-09',5594,11);
+insert into Mietvertrag values(1682,'2012-09-01','2012-09-01','2012-09-01',9721,25);
+insert into Mietvertrag values(1714,'2012-10-14','2012-10-14','2012-10-17',9812,34);
+
+create table Kunde(
+KdNr int,
+Vorname varchar(30),
+Nachname varchar(30),
+Strasse varchar(40),
+HNr varchar(10),
+PLZ int,
+Ort varchar(50));
+
+insert into Kunde values(5594,'Anja','Sommer','Waldweg','5a',97941,'Tauberbischofsheim');
+insert into Kunde values(9721,'Fritz','Haug','Sonnenstraße','11',01097,'Dresden');
+insert into Kunde values(9812,'Alfred','Sommer','Wiesenweg','5',97941,'Tauberbischofsheim');
+
+
+-- 1. Ändere beim Kunden 5594 den Wert Beginn auf 2021-09-01
+update Mietvertrag set Beginn = '2021-09-01' where KdNr = 5594;
+
+--2. Verknüpfe die Tabelle mit einem INNER JOIN auf 2 verschiedene Arten jeweils mit vollständigen Tabellennamen
+und mit alias Tabellennamen
+
+	-- 2.a. Simples verknüpfen (mit =) mit vollständigen Tabellennamen 
+	select * from Mietvertrag,Kunde where Mietvertrag.KdNr = Kunde.KdNr;
+
+	-- 2.b. Simples verknüpfen (mit =) mit alias
+	select * from Mietvertrag M,Kunde K where M.KdNr = K.KdNr;
+
+	-- 2.c. Verknüpfen mit unter der Verwendung von „INNER JOIN“ mit vollständigen Tabellennamen 
+	select * from Mietvertrag inner join Kunde on Mietvertrag.KdNr = Kunde.KdNr; 
+
+	-- 2.d. Verknüpfen mit unter der Verwendung von „INNER JOIN“mit alias
+	select * from Mietvertrag M inner join Kunde K on M.KdNr = K.KdNr;
+
+-- 3.Gib alle Mietveträge aus mit Vor und Nachname des Kunden aus
+
+	--a
+	select Mietvertrag.VertragsNr,Mietvertrag.Datum,Mietvertrag.Beginn,Mietvertrag.Ende,Kunde.KdNr,Kunde.Vorname,Kunde.Nachname from Mietvertrag , Kunde where Mietvertrag.KdNr = Kunde.KdNr;
+
+	--b
+	select Mietvertrag.VertragsNr,Mietvertrag.Datum,Mietvertrag.Beginn,Mietvertrag.Ende,Kunde.KdNr,Kunde.Vorname,Kunde.Nachname from Mietvertrag inner join Kunde on Mietvertrag.KdNr = Kunde.KdNr;
+
+--4
+select Kunde.KdNr,Kunde.Vorname,Kunde.Nachname,Mietvertrag.VertragsNr, Mietvertrag.RadNr, Mietvertrag.beginn, Mietvertrag.ende from Mietvertrag Inner join Kunde on Mietvertrag.KdNr = Kunde.KdNr where Mietvertrag.Ende < '2012-10-01' order by Mietvertrag.beginn ASC;
+
+--5
+select Mietvertrag.KdNr, Kunde.Vorname, Kunde.Nachname, Mietvertrag.VertragsNr, Mietvertrag.RadNr, Mietvertrag.beginn, Mietvertrag.Ende, Mietvertrag.datum from Mietvertrag Inner join Kunde on Mietvertrag.KdNr = Kunde.KdNr where Mietvertrag.beginn < '21-10-01' and Kunde.Nachname = 'Sommer' order by Mietvertrag.VertragsNr DESC;
+
+drop database MietvertragDB;

@@ -1,0 +1,55 @@
+drop database Leander;
+create database Leander; 
+use Leander;
+
+CREATE TABLE Laendertabelle(
+   id        INTEGER  NOT NULL PRIMARY KEY 
+  ,name      VARCHAR(30) 
+  ,region    VARCHAR(15) 
+  ,flaeche   INTEGER  
+  ,einwohner INTEGER  
+  ,bip       LONG  
+);
+
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (1,'Afghanistan','Asien',652000,25838797,21000000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (2,'Albanien','Europa',28748,3490435,5600000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (3,'Algerien','Afrika',2381740,31193917,147600000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (4,'Amerikanische Samoa-Inseln','Ozeanien',199,65446,150000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (5,'Andorra','Europa',468,66824,1200000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (6,'Angola','Afrika',1246700,10145267,11600000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (7,'Anguilla','Mittelamerika',91,11797,88000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (8,'Antarktik','Antarktis',14000000,0,NULL);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (9,'Antigua und Barbuda','Mittelamerika',442,66422,524000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (10,'Argentinien','Suedamerika',2766890,36955182,367000000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (11,'Armenien','Osteuropa',29800,3344336,9900000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (12,'Aruba','Mittelamerika',193,69539,1600000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (13,'Ashmore und Cartier Inseln','Suedostasien',5,0,NULL);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (14,'Australien','Ozeanien',7686850,19169083,416200000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (15,'Oesterreich','Europa',83858,8131111,190600000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (16,'Azerbaijan','Osteuropa',86600,7748163,14000000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (17,'Bahamas','Mittelamerika',13940,294982,5580000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (18,'Bahrain','Mittlerer Osten',620,634137,8600000000);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (19,'Baker IsLaendertabelle','Ozeanien',1,0,NULL);
+INSERT INTO Laendertabelle(id,name,region,flaeche,einwohner,bip) VALUES (20,'Bangladesh','Asien',144000,129194224,187000000000);
+
+
+select * from Laendertabelle;
+
+select region from Laendertabelle group by region;
+
+select region, count(region) from Laendertabelle group by region;
+
+selecht distinct(region) from Leandertabelle group by region;
+select distinct region from Laendertabelle;
+
+select region, avg(bip) ,sum(Einwohner) from Laendertabelle group by region;
+
+select region, sum(einwohner) from Laendertabelle group by region having sum(einwohner) > 1E08;
+
+
+select region, sum(einwohner) from Laendertabelle group by region where sum(einwohner) > 1E08;
+
+select region, sum(einwohner) from Laendertabelle where einwohner > 1E08 group by Region;
+
+select name from Laendertabelle where Region = (select Region from Laendertabelle where Name = 'Aruba');
+

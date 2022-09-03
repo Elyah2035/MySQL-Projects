@@ -1,0 +1,101 @@
+Drop Database Kunden;
+create Database Kunden;
+
+use Kunden;
+
+create table Einnahemen(
+	ID int,
+	KundenID int,
+	Beschreibung varchar(30) not null,
+	Betrag int
+);
+
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (1,33,'Ersatzgebuehr',40);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (2,33,'Mitgliederbeitrag'50);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (3,45,'Mitgliederbeitrag',50);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (4,33,'Mahngebuehr',65);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (5,35,'Kaution',20);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (6,59,'Mahngebeuhr',40);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (7,45,'Ersatzgebuehr',80);
+insert into Einnahemen (ID,KundenID,Beschreibung,Betrag) values (8,45,'Ersatzgebuehr',40);
+
+
+
+
+Select * from Einnahemen where Beschreibung like ('%uehr');
+
+select Beschreibung from Einnahemen group by Beschreibung;
+select Beschreibung from Einnahemen like ('%uehr') group by Beschreibung;
+
+alter table Einnahemen add column Nachname varchar(30);
+update Einnahemen set Nachname = 'Mueller' where ID = 1;
+update Einnahemen set Nachname = 'Schmidt' where ID = 2;
+update Einnahemen set Nachname = 'Schneider' where ID = 3;
+update Einnahemen set Nachname = 'Fischer' where ID = 4;
+update Einnahemen set Nachname = 'Meyer' where ID = 5;
+update Einnahemen set Nachname = 'Weber' where ID = 6;
+update Einnahemen set Nachname = 'Hofman' where ID = 7;
+update Einnahemen set Nachname = 'Wagner' where ID = 8;
+
+
+
+alter table Einnahemen add column Vorname varchar(30);
+update Einnahemen set Vorname = 'Herbert' where ID = 1;
+update Einnahemen set Vorname  = 'John' where ID = 2;
+update Einnahemen set Vorname  = 'Senpai' where ID = 3;
+update Einnahemen set Vorname  = 'Luca' where ID = 4;
+update Einnahemen set Vorname  = 'Simon' where ID = 5;
+update Einnahemen set Vorname  = 'Akano' where ID = 6;
+update Einnahemen set Vorname  = 'Florian' where ID = 7;
+update Einnahemen set Vorname  = 'Mia' where ID = 8;
+
+
+
+select * from Einnahemen order by Beschreibung ASC, Nachname DESC;
+
+
+select count(ID) as 'Datensätze' from Einnahemen;
+
+select count(betrag) as 'Datensätze 40+' from Einnahemen where Betrag > 40;
+
+select count(betrag) as 'Gebuer 41 bis 79' from Einnahemen where Betrag > 40 and betrag < 80; 
+
+select beschreibung,sum(betrag) as 'summierten Betrag jeder Gebührengruppe' from Einnahemen group by beschreibung;
+
+select sum(betrag) as 'gesammte Einahmen nicht kleiner als 50 ' from Einnahemen;
+
+select sum(betrag) as 'gesammte gebueren nicht kleiner als 50' from Einnahemen where Beschreibung LIKE '%uehr';
+
+select AVG(betrag) as 'durchschittlicher Betrag' from Einnahemen;
+
+select beschreibung, AVG(betrag) as 'durchschnittlichen Betrag' from Einnahemen group by Beschreibung;
+
+select MIN(betrag) as 'kleinste gebuehr' from Einnahemen;
+
+select beschreibung, AVG(betrag) as 'durchschnittlichen Betrag pro Gebührengruppe' from Einnahemen group by Beschreibung;
+
+select beschreibung, MIN(betrag) as 'minimalen Wert aller Gebühren',  MAX(betrag) as 'größte gebuehr' from Einnahemen group by Beschreibung;
+
+select beschreibung, count(betrag) as 'minimalen und maximalen Betrag über alle Gebühren pro Gebührengruppe' from Einnahemen group by Beschreibung;
+
+select beschreibung, count(betrag) as 'Anzahl der Gebühren pro Gebührengruppe' from Einnahemen group by Beschreibung HAVING count(betrag) > 1;
+
+select * from Einnahemen where ID < 5; 
+
+select * from Einnahemen where Beschreibung LIKE 'Mahngebeuhr' or beschreibung LIKE 'Erstatzebuehr';
+
+select * from Einnahemen where Beschreibung = 'Mahngebeuhr' OR beschreibung = 'Erstatzebuehr';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
